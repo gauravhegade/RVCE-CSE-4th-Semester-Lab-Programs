@@ -4,20 +4,25 @@ import java.util.Scanner;
 class Circle {
     private double radius;
     private String color;
+
     public Circle(double radius) {
         this.radius = radius;
         this.color = "";
     }
+
     public Circle(double radius, String color) {
         this.radius = radius;
         this.color = color;
     }
+
     public double getRadius() {
         return radius;
     }
+
     public double getArea() {
         return Math.PI * radius * radius;
     }
+
     public String getColor() {
         return color;
     }
@@ -25,27 +30,32 @@ class Circle {
 
 class Cylinder extends Circle {
     private double height;
+
     public Cylinder(double height, double radius) {
         super(radius);
         this.height = height;
     }
+
     public Cylinder(double height, double radius, String color) {
         super(radius, color);
         this.height = height;
     }
+
     public double getHeight() {
         return height;
     }
+
     public double getVolume() {
         return getArea() * height;
     }
+
     @Override
     public double getArea() {
         return 2 * Math.PI * getRadius() * (getRadius() + height);
     }
 }
 
-public class Prog2 {
+public class Program_2 {
     public static void main(String[] args) {
         int k = 1;
         while (k != -1) {
@@ -69,8 +79,8 @@ public class Prog2 {
             Cylinder cylinder2 = new Cylinder(height2, radius2, color2);
             // Printing similar cylinders if area, volume, and color are the same
             if (cylinder1.getArea() == cylinder2.getArea() &&
-                cylinder1.getVolume() == cylinder2.getVolume() &&
-                cylinder1.getColor().equals(cylinder2.getColor())) {
+                    cylinder1.getVolume() == cylinder2.getVolume() &&
+                    cylinder1.getColor().equals(cylinder2.getColor())) {
                 System.out.println("The cylinders are similar.");
                 // Accessing methods from the base class
                 System.out.println("Cylinder 1 - Radius: " + cylinder1.getRadius());

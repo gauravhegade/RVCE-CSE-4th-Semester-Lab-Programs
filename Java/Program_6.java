@@ -1,18 +1,20 @@
 import java.util.LinkedList;
 import java.util.Random;
+
 class Market {
-    LinkedList < String > list = new LinkedList < > ();
+    LinkedList<String> list = new LinkedList<>();
     final int capacity = 5;
     String[] fruits = {
-        "Apple",
-        "Orange",
-        "Grape",
-        "Watermelon"
+            "Apple",
+            "Orange",
+            "Grape",
+            "Watermelon"
     };
     Random random = new Random();
+
     public void produce() throws InterruptedException {
         while (true) {
-            synchronized(this) {
+            synchronized (this) {
                 while (list.size() == capacity)
                     wait();
                 String fruit = fruits[random.nextInt(4)];
@@ -23,9 +25,10 @@ class Market {
             }
         }
     }
+
     public void consume() throws InterruptedException {
         while (true) {
-            synchronized(this) {
+            synchronized (this) {
                 while (list.size() == 0)
                     wait();
                 String val = list.removeFirst();
@@ -36,6 +39,7 @@ class Market {
         }
     }
 }
+
 public class Program_6 {
     public static void main(String[] args) throws InterruptedException {
         final Market market = new Market();
