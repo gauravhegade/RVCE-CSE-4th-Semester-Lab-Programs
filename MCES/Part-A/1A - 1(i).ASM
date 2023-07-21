@@ -1,0 +1,16 @@
+	AREA RESET, CODE
+	ENTRY
+	; A = B + C - D
+	MOV R0, #00			; A, STORES RESULT
+	MOV R1, #NUM1		; B
+	MOV R2, #NUM2		; C
+	MOV R3, #NUM3		; D
+	
+	ADD R1, R2			; B + C
+	SUB R0, R1, R3		; (B + C) - D
+	
+STOP B STOP
+NUM1 EQU 3
+NUM2 EQU 2
+NUM3 EQU 1
+	END

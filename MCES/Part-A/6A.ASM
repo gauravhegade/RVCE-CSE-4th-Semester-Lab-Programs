@@ -1,0 +1,28 @@
+; Compute factorial of  a 32 bit number
+	AREA RESET, CODE
+	ENTRY
+
+	LDR R0, =INPUT
+	BL FACT
+
+	LDR R0, =0x40000000
+	STR R2, [R0]
+
+STOP B STOP
+
+; begin subroutine
+FACT
+	LDR R1, [R0]
+	MOV R2, #1
+	CMP R1, #0
+	MOV PC, LR
+
+LOOP
+	MUL R2, R1, R2
+	SUBS R1, #1
+	BNE LOOP
+	MOV PC, LR	; RETURN
+;end subroutine
+
+INPUT DCD &05
+	END
