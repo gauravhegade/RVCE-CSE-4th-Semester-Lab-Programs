@@ -29,7 +29,7 @@ int main()
             scanf("%d", &a[i][j]);
 
     for (int i = 1; i <= n; i++)
-        if (visited[i] == 0)
+        if (!visited[i])
             dfs(a, n, visited, i);
 
     printf("\n The topological ordering is\n");
