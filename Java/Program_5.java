@@ -1,79 +1,71 @@
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Random;
 
-class DemonetizationException extends Exception {
-    private int amount;
+class Market {
+    LinkedList<String> list = new LinkedList<>();
+    final int capacity = 5;
+    String[] fruits = {
+            "Apple",
+            "Orange",
+            "Grape",
+            "Watermelon"
+    };
+    Random random = new Random();
 
-    public DemonetizationException(int amount) {
-        this.amount = amount;
-    }
-
-    public String getMessage() {
-        return "Deposit of Old currency of Rs" + amount + " crosses Rs. 5,000 and cannot be Deposited ";
-    }
-}
-
-class Account {
-    private static final int MIN_BALANCE = 500;
-    private int balance;
-
-    public Account() {
-        balance = MIN_BALANCE;
-    }
-
-    public void deposit(int amount, String currencyType) {
-        String curr = currencyType.toUpperCase();
-        if (curr.equals("OLD") && amount > 5000) {
-            try {
-                throw new DemonetizationException(amount);
-            } catch (DemonetizationException e) {
-                System.out.println(e.getMessage());
-                return;
-            }
-        }
-        balance += amount;
-        System.out.println("Deposit successful!");
-    }
-
-    public void currBalance() {
-        System.out.println("Current balance: Rs" + balance);
-    }
-
-    public void withdraw(int amount) {
-        if (balance - amount < MIN_BALANCE) {
-            System.out.println("Insufficient balance!");
-            return;
-        }
-        balance -= amount;
-        System.out.println("Withdrawal successful!");
-    }
-}
-
-class Program_5 {
-    public static void main(String[] args) {
-        Scanner inp = new Scanner(System.in);
-        Account acc = new Account();
+    public void produce() throws InterruptedException {
         while (true) {
-            System.out.println("1.Deposit\n2.Current bal\n3.Withdraw\n4.Exit\nEnter your choice: ");
-            int ch = inp.nextInt();
-            switch (ch) {
-                case 1:
-                    System.out.println("Enter the amount to be deposited");
-                    int amount = inp.nextInt();
-                    System.out.println("Enter amount type");
-                    String type = inp.next();
-                    acc.deposit(amount, type);
-                    break;
-                case 2:
-                    acc.currBalance();
-                    break;
-                case 3:
-                    System.out.println("Enter amount to be withdrawn: ");
-                    int amount1 = inp.nextInt();
-                    acc.withdraw(amount1);
-                    break;
-                case 4:
-                    System.exit(0);
+            synchronized (this) {
+                while (list.size() == capacity)
+                    wait();
+                String fruit = fruits[random.nextInt(4)];
+                System.out.println("Farmer produced " + fruit);
+                list.add(fruit);
+                notifyAll();
+                Thread.sleep(500);
             }
         }
+    }
+
+    public void consume() throws InterruptedException {
+        while (true) {
+            synchronized (this) {
+                while (list.size() == 0)
+                    wait();
+                String val = list.removeFirst();
+                System.out.println("Customer Bought " + val);
+                notifyAll();
+                Thread.sleep(500);
+            }
+        }
+    }
+}
+
+public class Program_5 {
+    public static void main(String[] args) throws InterruptedException {
+        final Market market = new Market();
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    market.produce();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    market.consume();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
     }
 }

@@ -59,51 +59,64 @@ public class Program_2 {
     public static void main(String[] args) {
         int k = 1;
         while (k != -1) {
-            Scanner scanner = new Scanner(System.in);
+            Scanner input = new Scanner(System.in);
+
             System.out.print("Enter the height of Cylinder 1: ");
-            double height1 = scanner.nextDouble();
+            double height1 = input.nextDouble();
             System.out.print("Enter the radius of Cylinder 1: ");
-            double radius1 = scanner.nextDouble();
-            scanner.nextLine();
+            double radius1 = input.nextDouble();
+            input.nextLine();
             System.out.print("Enter the color of Cylinder 1: ");
-            String color1 = scanner.nextLine();
+            String color1 = input.nextLine();
+
+            System.out.println();
+
             System.out.print("Enter the height of Cylinder 2: ");
-            double height2 = scanner.nextDouble();
+            double height2 = input.nextDouble();
             System.out.print("Enter the radius of Cylinder 2: ");
-            double radius2 = scanner.nextDouble();
-            scanner.nextLine();
+            double radius2 = input.nextDouble();
+            input.nextLine();
             System.out.print("Enter the color of Cylinder 2: ");
-            String color2 = scanner.nextLine();
+            String color2 = input.nextLine();
+
             // Creating instances of Cylinder
-            Cylinder cylinder1 = new Cylinder(height1, radius1, color1);
-            Cylinder cylinder2 = new Cylinder(height2, radius2, color2);
+            Cylinder c1 = new Cylinder(height1, radius1, color1);
+            Cylinder c2 = new Cylinder(height2, radius2, color2);
+            System.out.println();
+
             // Printing similar cylinders if area, volume, and color are the same
-            if (cylinder1.getArea() == cylinder2.getArea() &&
-                    cylinder1.getVolume() == cylinder2.getVolume() &&
-                    cylinder1.getColor().equals(cylinder2.getColor())) {
+            if (c1.getArea() == c2.getArea() &&
+                    c1.getVolume() == c2.getVolume() &&
+                    c1.getColor().equals(c2.getColor())) {
                 System.out.println("The cylinders are similar.");
+
                 // Accessing methods from the base class
-                System.out.println("Cylinder 1 - Radius: " + cylinder1.getRadius());
-                System.out.println("Cylinder 1 - Area: " + cylinder1.getArea());
-                System.out.println("Cylinder 1 - Color: " + cylinder1.getColor());
+                System.out.println("Cylinder 1 - Radius: " + c1.getRadius());
+                System.out.println("Cylinder 1 - Area: " + c1.getArea());
+                System.out.println("Cylinder 1 - Color: " + c1.getColor());
+
                 // Accessing methods from the derived class
-                System.out.println("Cylinder 2 - Height: " + cylinder2.getHeight());
-                System.out.println("Cylinder 2 - Volume: " + cylinder2.getVolume());
-                System.out.println("Cylinder 2 - Color: " + cylinder2.getColor());
+                System.out.println();
+                System.out.println("Cylinder 2 - Height: " + c2.getHeight());
+                System.out.println("Cylinder 2 - Volume: " + c2.getVolume());
+                System.out.println("Cylinder 2 - Color: " + c2.getColor());
             } else {
                 System.out.println("The cylinders are different.");
+
                 // Accessing methods from the base class
-                System.out.println("Cylinder 1 - Radius: " + cylinder1.getRadius());
-                System.out.println("Cylinder 1 - Area: " + cylinder1.getArea());
-                System.out.println("Cylinder 1 - Color: " + cylinder1.getColor());
+                System.out.println("Cylinder 1 - Radius: " + c1.getRadius());
+                System.out.println("Cylinder 1 - Area: " + c1.getArea());
+                System.out.println("Cylinder 1 - Color: " + c1.getColor());
+
                 // Accessing methods from the derived class
-                System.out.println("Cylinder 2 - Height: " + cylinder2.getHeight());
-                System.out.println("Cylinder 2 - Volume: " + cylinder2.getVolume());
-                System.out.println("Cylinder 2 - Color: " + cylinder2.getColor());
+                System.out.println();
+                System.out.println("Cylinder 2 - Height: " + c2.getHeight());
+                System.out.println("Cylinder 2 - Volume: " + c2.getVolume());
+                System.out.println("Cylinder 2 - Color: " + c2.getColor());
             }
             System.out.print("Any key to continue, -1 to stop: ");
-            k = scanner.nextInt();
-            scanner.nextLine();
+            k = input.nextInt();
+            input.nextLine();
         }
     }
 }

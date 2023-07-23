@@ -48,14 +48,18 @@ public class Program_1b {
     public static void main(String[] args) {
         int num, i;
         String usn, name, id;
+
         System.out.println("Enter the number of Objects");
         Scanner in = new Scanner(System.in);
+
         num = in.nextInt();
         in.nextLine();
+
         Address addr[] = new Address[10];
         Student stud[] = new Student[10];
         College col[] = new College[10];
         Employee empl[] = new Employee[10];
+
         for (i = 0; i < num; i++) {
             System.out.println("Enter the Details of Student: " + (i + 1));
             System.out.println("Name:");
@@ -90,33 +94,31 @@ public class Program_1b {
                     in.nextLine(), in.nextLine());
             col[i] = new College(name, addr[i]);
         }
+
         Loop: while (true) {
             System.out.println("1. Student Detail\n2. Employee Detail\n3. College Detail \nEnter your Choice ");
             int var = in.nextInt();
             switch (var) {
                 case 1:
                     for (i = 0; i < num; i++) {
-                        String format = "|%1$-10s|%2$-10s|%3$-40s|\n";
-                        System.out.format(format, "Name", "USN", "Address");
-                        System.out.format(format, stud[i].name, stud[i].usn,
+                        System.out.println("Name | USN | Address");
+                        System.out.println(stud[i].name + " | " + stud[i].usn + " | " +
                                 stud[i].address.street_no + ", " + stud[i].address.city + ", " +
-                                        stud[i].address.state + ", " + stud[i].address.country);
+                                stud[i].address.state + ", " + stud[i].address.country);
                     }
                     break;
                 case 2:
                     for (i = 0; i < num; i++) {
-                        String format = "|%1$-10s|%2$-10s|%3$-40s|\n";
-                        System.out.format(format, "Name", "Employee ID", "Address");
-                        System.out.format(format, empl[i].name, empl[i].id,
-                                empl[i].address.street_no + ", " + empl[i].address.city + ", " +
-                                        empl[i].address.state + ", " + empl[i].address.country);
+                        System.out.println("Name | ID | Address");
+                        System.out.println(empl[i].name + " | " + empl[i].id + " | " + empl[i].address.street_no + ", "
+                                + empl[i].address.city + ", " +
+                                empl[i].address.state + ", " + empl[i].address.country);
                     }
                     break;
                 case 3:
                     for (i = 0; i < num; i++) {
-                        String format = "|%1$-15s|%2$-40s|\n";
-                        System.out.format(format, "College Name", "Address");
-                        System.out.format(format, col[i].name, col[i].address.street_no + ", " +
+                        System.out.println("College Name | Address");
+                        System.out.println(col[i].name + " | " + col[i].address.street_no + ", " +
                                 col[i].address.city + ", " + col[i].address.state + ", " +
                                 col[i].address.country);
                     }
@@ -125,6 +127,5 @@ public class Program_1b {
                     break Loop;
             }
         }
-        in.close();
     }
 }
