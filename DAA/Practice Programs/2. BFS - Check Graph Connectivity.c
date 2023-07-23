@@ -11,9 +11,9 @@ void bfs(int a[10][10], int n, int visited[10], int source)
     while (front <= rear)
     {
         node = q[front++];
-        for (i = 1; i <= n; i++)
+        for (i = 0; i < n; i++)
         {
-
+            // if there is an edge and the node is not visited
             if (a[node][i] == 1 && !visited[i])
             {
                 visited[i] = 1;
@@ -31,25 +31,24 @@ int main()
     printf("Enter no of nodes: ");
     scanf("%d", &n);
 
-    printf("\nRead Adjacency matrix \n");
-    for (i = 1; i <= n; i++)
-        for (j = 1; j <= n; j++)
+    printf("\nEnter Adjacency matrix \n");
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
             scanf("%d", &a[i][j]);
 
     count = 0;
-    for (i = 1; i <= n; i++)
+    for (i = 0; i < n; i++)
     {
-        if (visited[i] == 0)
+        if (!visited[i])
         {
             bfs(a, n, visited, i);
             count++;
         }
     }
-
-    if (count)
-        printf("Graph is Connected");
+    if (count == 1)
+        printf("\nGraph is connected\n");
     else
-        printf("Graph is NOT Connected with %d components\n", count);
+        printf("\nGraph is NOT connected with %d components\n", count);
 
     return 0;
 }
