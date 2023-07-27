@@ -8,7 +8,7 @@ class DemonetizationException extends Exception {
     }
 
     public String getMessage() {
-        return "Deposit of Old currency of Rs" + amount + " crosses Rs. 5,000 and cannot be Deposited ";
+        return "Deposit of Old currency of Rs. " + amount + " crosses Rs. 5,000 and cannot be deposited ";
     }
 }
 
@@ -35,7 +35,7 @@ class Account {
     }
 
     public void currBalance() {
-        System.out.println("Current balance: Rs" + balance);
+        System.out.println("Current balance: Rs. " + balance);
     }
 
     public void withdraw(int amount) {
@@ -53,13 +53,13 @@ class Program_4 {
         Scanner inp = new Scanner(System.in);
         Account acc = new Account();
         while (true) {
-            System.out.println("1.Deposit\n2.Current bal\n3.Withdraw\n4.Exit\nEnter your choice: ");
+            System.out.println("1. Deposit\n2. Current bal\n3. Withdraw\n4. Exit\nEnter your choice: ");
             int ch = inp.nextInt();
             switch (ch) {
                 case 1:
-                    System.out.println("Enter the amount to be deposited");
+                    System.out.println("Enter the amount to be deposited: ");
                     int amount = inp.nextInt();
-                    System.out.println("Enter amount type");
+                    System.out.println("Enter amount type: ");
                     String type = inp.next();
                     acc.deposit(amount, type);
                     break;
@@ -71,7 +71,7 @@ class Program_4 {
                     int amount1 = inp.nextInt();
                     acc.withdraw(amount1);
                     break;
-                case 4:
+                default:
                     System.exit(0);
             }
         }

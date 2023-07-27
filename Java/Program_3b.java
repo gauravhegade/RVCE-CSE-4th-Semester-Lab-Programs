@@ -45,7 +45,7 @@ public class Program_3b {
         lion.eat();
         lion.roar();
         lion.sleep();
-        System.out.println("\n");
+        System.out.println();
         Snake snake = new Snake();
         snake.eat();
         snake.slither();
