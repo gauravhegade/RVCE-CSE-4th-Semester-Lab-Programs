@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int table[1000];
+int table[1000], count;
 
 void ShiftTableComputation(char p[])
 {
@@ -15,12 +15,11 @@ void ShiftTableComputation(char p[])
         table[p[j]] = m - 1 - j;
 }
 
-int HPoolStringMatching(char p[], char t[])
+int HPoolStringMatching(char t[], char p[])
 {
-    int j, k;
     int m = strlen(p);
     int n = strlen(t);
-    int i = m - 1;
+    int i = m - 1, k;
 
     // Shift Table Computation
     ShiftTableComputation(p);
@@ -30,29 +29,35 @@ int HPoolStringMatching(char p[], char t[])
         k = 0;
         while ((k <= m - 1) && t[i - k] == p[m - 1 - k])
             k++;
+        
         if (k == m)
             return i - m + 1;
-        else
+
+        else{
             i += table[t[i]];
+            count++;
+        }
     }
     return -1;
 }
 
 int main()
 {
-    char str[100], ptr[100];
-    int res;
+    char t[100], p[100];
 
-    printf("Enter the text:");
-    scanf("%s", str);
+    printf("Enter the text: ");
+    scanf("%[^\n]%*c", t);
 
-    printf("Enter pattern:");
-    scanf("%s", ptr);
+    printf("Enter pattern: ");
+    scanf("%[^\n]%*c", p);
 
-    res = HPoolStringMatching(ptr, str);
+    int res = HPoolStringMatching(t, p);
 
     if (res == -1)
         printf("Not found");
 
-    printf("Pattern found at position %d", res + 1);
+    printf("Pattern found at position %d\n", res + 1);
+    printf("Number of shifts performed: %d\n", count);
+
+    return 0;
 }

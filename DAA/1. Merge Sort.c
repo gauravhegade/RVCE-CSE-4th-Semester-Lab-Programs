@@ -11,16 +11,13 @@ void merge(int A[SIZE], int low, int mid, int high)
     int j = mid + 1;
     int k = low;
 
-    while (i <= mid && j <= high)
-    {
-        if (A[i] < A[j])
-        {
+    while (i <= mid && j <= high){
+        if (A[i] < A[j]){
             B[k++] = A[i++];
             count++;
         }
 
-        else
-        {
+        else{
             B[k++] = A[j++];
             count++;
         }
@@ -36,10 +33,8 @@ void merge(int A[SIZE], int low, int mid, int high)
         A[i] = B[i];
 }
 
-void mergesort(int A[SIZE], int low, int high)
-{
-    if (low < high)
-    {
+void mergesort(int A[SIZE], int low, int high){
+    if (low < high){
         int mid = (low + high) / 2;
         mergesort(A, low, mid);
         mergesort(A, mid + 1, high);
@@ -47,8 +42,7 @@ void mergesort(int A[SIZE], int low, int high)
     }
 }
 
-int main()
-{
+int main(){
     int A[SIZE], X[SIZE], Y[SIZE], Z[SIZE];
     int n, i, j, c1, c2, c3;
 
@@ -57,33 +51,25 @@ int main()
 
     printf("\nEnter array elements: ");
     for (i = 0; i < n; i++)
-    {
         scanf("%d", &A[i]);
-    }
 
     printf("\nArray elements before sorting: ");
     for (i = 0; i < n; i++)
-    {
         printf("%d ", A[i]);
-    }
 
     mergesort(A, 0, n - 1);
 
     printf("\nArray elements after sorting: ");
     for (i = 0; i < n; i++)
-    {
         printf("%d ", A[i]);
-    }
 
     printf("\nBasic operation executed %d times", count);
 
     printf("\nCount table: ");
     printf("\nSize \t Ascending \t Descending \t Random \t\n");
 
-    for (i = 16; i < SIZE; i *= 2)
-    {
-        for (j = 0; j < i; j++)
-        {
+    for (i = 16; i < SIZE; i *= 2){
+        for (j = 0; j < i; j++){
             X[j] = i;
             Y[j] = i - j - 1;
             Z[j] = rand() % i;

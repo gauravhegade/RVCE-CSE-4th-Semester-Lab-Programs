@@ -1,31 +1,32 @@
 #include <stdio.h>
 #define INF 999
 
-void dijs(int n, int sv, int cost[10][10], int dist[], int pred[])
-{
-    int i, v, count, w, j, visited[23], min;
+void dijs(int n, int source, int cost[10][10], int distance[], int predecessor[]){
+    int v, count, visited[23], min;
 
-    for (i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++){
         visited[i] = 0;
-        dist[i] = cost[sv][i];
-        if (dist[i] != INF)
-            pred[i] = sv;
+        
+        // distance to the current node is the cost from the source to the current node
+        distance[i] = cost[source][i];
+
+        // if distance is not infinity then there is a path from the source to the current node, so we can set the source as the predecessor of the current node
+        if (distance[i] != INF)
+            predecessor[i] = source;
     }
 
-    visited[sv] = 1;
-    dist[sv] = 0;
-    pred[sv] = -1;
+    visited[source] = 1;
+    distance[source] = 0;
+    predecessor[source] = -1;
     count = 1;
 
-    while (count < n)
-    {
+    while (count < n){
+        // calculating minimum distances
         min = INF;
-        for (w = 0; w < n; w++)
-        {
-            if (!visited[w] && dist[w] < min)
-            {
-                min = dist[w];
+        for (int w = 0; w < n; w++){
+            // if the current node is not visited and the distance to reach that node is less than the current minimum, update the min distance
+            if (!visited[w] && distance[w] < min){
+                min = distance[w];
                 v = w;
             }
         }
@@ -33,55 +34,56 @@ void dijs(int n, int sv, int cost[10][10], int dist[], int pred[])
         visited[v] = 1;
         count++;
 
-        for (w = 0; w < n; w++)
-        {
-            if (!visited[w] && dist[v] + cost[v][w] < dist[w])
-            {
-                dist[w] = dist[v] + cost[v][w];
-                pred[w] = v;
+        // relaxation
+        for (int w = 0; w < n; w++){
+            // if the current node is not visited and the distance of the previous node and the cost to reach the current node from the previous node is less than the current distance, then update the new distance, and set the predecessor of the current node as the prevous node
+            if (!visited[w] && distance[v] + cost[v][w] < distance[w]){
+                distance[w] = distance[v] + cost[v][w];
+                predecessor[w] = v;
             }
         }
     }
 }
 
-int main()
-{
-    int n, sv, i, j, dist[10], cost[10][10], pred[10];
+int main(){
+    int n, source, distance[10], cost[10][10], predecessor[10];
 
-    printf("\nDijkstra\nEnter n:");
+    printf("Enter number of vertices: ");
     scanf("%d", &n);
 
     printf("Enter cost matrix:\n");
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < n; j++)
-        {
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
             scanf("%d", &cost[i][j]);
             if (cost[i][j] == 0)
                 cost[i][j] = INF;
         }
     }
 
-    printf("Enter source:");
-    scanf("%d", &sv);
+    printf("Enter source vertex (0 indexed): ");
+    scanf("%d", &source);
 
-    dijs(n, sv, cost, dist, pred);
+    dijs(n, source, cost, distance, predecessor);
 
-    printf("\nShortest path:\n");
-    for (i = 0; i < n; i++)
-    {
-        if (i != sv)
-        {
-            printf("\nShortest Distance of vertex %d=%d", i, dist[i]);
-            printf("\nPath=%d", i);
-            j = i;
-            do
-            {
-                j = pred[j];
+    printf("\nShortest paths from node %d are: \n", source);
+    printf("\nNode\tDistance\tPath\n");
+
+    for (int i = 0; i < n; i++){
+        if (i != source){
+            printf("%d\t%d", i, distance[i]);
+            printf("\t\t%d", i);
+            
+            int j = i;
+
+            do{
+                j = predecessor[j];
                 printf("<-%d", j);
-            } while (j != sv);
+            } while (j != source);
+            
+            printf("\n");
         }
     }
+    printf("\n");
 
     return 0;
 }
