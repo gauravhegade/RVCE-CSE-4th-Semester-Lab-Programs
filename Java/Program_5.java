@@ -1,5 +1,4 @@
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 class Market {
     LinkedList<String> list = new LinkedList<>();

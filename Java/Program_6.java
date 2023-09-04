@@ -3,116 +3,116 @@ import java.util.*;
 class Arrays {
     ArrayList<String> list = new ArrayList<>();
 
-    public void addItems(String color) {
+    public void add(String color) {
         list.add(color);
     }
 
-    public void displayItems() {
-        if (list.size() == 0)
-            System.out.println("Empty list");
-        else
-            System.out.println("The items in the list are: " + list);
+    public void display() {
+        if (list.isEmpty())
+            return;
+
+        System.out.println("Array List is: " + list);
     }
 
-    public void toArray() {
-        if (list.size() == 0)
-            System.out.println("Empty list");
-        else {
-            String[] arr = new String[list.size()];
-            list.toArray(arr);
-            System.out.println("The array contents are: ");
-            for (String str : arr)
-                System.out.println(str);
-        }
+    public void reverseList() {
+        if (list.isEmpty())
+            return;
+
+        ArrayList<String> reversed = new ArrayList<>();
+        for (int i = list.size() - 1; i >= 0; i--)
+            reversed.add(list.get(i));
+
+        System.out.println("Reversed list is: " + reversed);
     }
 
-    public void revList() {
+    public void sort() {
+        if (list.isEmpty())
+            return;
 
-        if (list.size() == 0)
-            System.out.println("Empty list");
-        else {
-            ArrayList<String> rev = new ArrayList<>();
-            for (int i = list.size() - 1; i >= 0; i--)
-                rev.add(list.get(i));
-            System.out.println("The sorted array is: ");
-            for (int i = 0; i < rev.size(); i++)
-                System.out.print(rev.get(i) + " ");
-            System.out.println("");
-        }
-    }
-
-    public void getSubarray(int start, int end) {
-        if (start < 0 || end > list.size())
-            System.out.println("Invalid indices");
-        else {
-            ArrayList<String> newlist = new ArrayList<>(list.subList(start, end));
-
-            System.out.println("Segment of the list from index " +
-                    start + " till index " + end + " is: " + newlist);
-        }
-    }
-
-    public void sortArray() {
-        if (list.size() == 0)
-            System.out.println("Empty list");
-        else {
-            Collections.sort(list);
-            System.out.println("The sorted array is: " + list);
-        }
+        Collections.sort(list);
+        System.out.println("Sorted list is: " + list);
     }
 
     @SuppressWarnings("unchecked")
-    public void cloneArray() {
-        if (list.size() == 0)
-            System.out.println("Empty list");
-        else {
-            ArrayList<String> clone_list = (ArrayList<String>) list.clone();
-            System.out.println("The cloned list is: " + clone_list);
-        }
+    public void cloneList() {
+        if (list.isEmpty())
+            return;
+
+        ArrayList<String> cloned_list = (ArrayList<String>) list.clone();
+        System.out.println("Cloned list is: " + cloned_list);
     }
+
+    public void subArray(int start, int end) {
+        if (list.isEmpty())
+            return;
+
+        else if (start < 0 || end > list.size()) {
+            System.out.println("Out of bounds!");
+            return;
+        }
+
+        ArrayList<String> subarray = new ArrayList<>(list.subList(start, end));
+        System.out.println("Sub Array is: " + subarray);
+    }
+
+    public void toArray() {
+        if (list.isEmpty())
+            return;
+
+        String[] arr = new String[list.size()];
+        list.toArray(arr);
+
+        System.out.println("Converted array is: ");
+        for (String s : arr)
+            System.out.print(s + " ");
+
+        System.out.println();
+    }
+
 }
 
 public class Program_6 {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
+        Arrays arr = new Arrays();
+        Scanner input = new Scanner(System.in);
+
         int choice, start, end;
         String color;
-        Scanner s = new Scanner(System.in);
-        System.out.println("1. Add items to the list\n2. Display items of the list\n3. Convert list to array\n"
-                + "4. Reverse List\n5. Print SubArray\n6. Sort the List\n7. Clone List");
-        Arrays obj = new Arrays();
-        while (true) {
-            System.out.println("Enter the choice: ");
-            choice = s.nextInt();
-            switch (choice) {
-                case 1:
-                    System.out.println("Enter the Color: ");
-                    color = s.next();
-                    obj.addItems(color);
-                    break;
-                case 2:
-                    obj.displayItems();
-                    break;
-                case 3:
-                    obj.toArray();
-                    break;
-                case 4:
-                    obj.revList();
-                    break;
-                case 5:
-                    System.out.println("Enter the start and end indices (0 based): ");
-                    start = s.nextInt();
-                    end = s.nextInt();
-                    obj.getSubarray(start, end);
-                    break;
-                case 6:
-                    obj.sortArray();
-                    break;
-                case 7:
-                    obj.cloneArray();
-                    break;
-                default:
-                    System.exit(0);
 
+        System.out.println("""
+                1. Add Element
+                2. Display List
+                3. Reverse List
+                4. Sort List
+                5. Clone List
+                6. Extract SubArray
+                7. Convert to Array
+                 """);
+
+        while (true) {
+            System.out.print("Enter your choice: ");
+            choice = input.nextInt();
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Enter color: ");
+                    color = input.next();
+                    arr.add(color);
+                }
+                case 2 -> arr.display();
+                case 3 -> arr.reverseList();
+                case 4 -> arr.sort();
+                case 5 -> arr.cloneList();
+                case 6 -> {
+                    System.out.println("Enter start and end index (0 indexed): ");
+                    start = input.nextInt();
+                    end = input.nextInt();
+                    arr.subArray(start, end);
+                }
+                case 7 -> arr.toArray();
+                default -> {
+                    input.close();
+                    System.exit(1);
+                }
             }
         }
     }

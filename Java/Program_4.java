@@ -71,8 +71,10 @@ class Program_4 {
                     int amount1 = inp.nextInt();
                     acc.withdraw(amount1);
                     break;
-                default:
+                default: {
                     System.exit(0);
+                    inp.close();
+                }
             }
         }
     }

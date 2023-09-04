@@ -1,16 +1,14 @@
-import java.lang.Math;
-import java.util.Scanner;
+import java.util.*;
 
 class Circle {
     private double radius;
     private String color;
 
-    public Circle(double radius) {
+    Circle(double radius) {
         this.radius = radius;
-        this.color = "";
     }
 
-    public Circle(double radius, String color) {
+    Circle(double radius, String color) {
         this.radius = radius;
         this.color = color;
     }
@@ -19,24 +17,24 @@ class Circle {
         return radius;
     }
 
-    public double getArea() {
-        return Math.PI * radius * radius;
-    }
-
     public String getColor() {
         return color;
+    }
+
+    public double getArea() {
+        return Math.PI * radius * radius;
     }
 }
 
 class Cylinder extends Circle {
     private double height;
 
-    public Cylinder(double height, double radius) {
+    Cylinder(double height, double radius) {
         super(radius);
         this.height = height;
     }
 
-    public Cylinder(double height, double radius, String color) {
+    Cylinder(double height, double radius, String color) {
         super(radius, color);
         this.height = height;
     }

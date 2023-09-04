@@ -56,13 +56,11 @@ public class Program_1a {
         Complex result = new Complex();
 
         System.out.println("Adding 2 complex numbers: ");
-        result.display(result.add(c2, c1));
+        result.display(result.add(c1, c2));
         System.out.println("Subtracting 2 complex numbers: ");
         result.display(result.subtract(c2, c1));
 
-        System.out.println("");
-
-        System.out.println("Adding 3 complex numbers: ");
+        System.out.println("\nAdding 3 complex numbers: ");
         result.display(result.add(c1, c2, c3));
         System.out.println("Subtracting 3 complex numbers: ");
         result.display(result.subtract(c3, c2, c1));
