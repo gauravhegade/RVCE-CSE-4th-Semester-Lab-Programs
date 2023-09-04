@@ -24,7 +24,7 @@ void dijs(int n, int source, int cost[10][10], int distance[], int predecessor[]
         // calculating minimum distances
         min = INF;
         for (int w = 0; w < n; w++){
-            // if the current node is not visited and the distance to reach that node is less than the current minimum, update the min distance
+            // traverse along the minimum cost path marking nodes as visited on the way and performing relaxation
             if (!visited[w] && distance[w] < min){
                 min = distance[w];
                 v = w;
