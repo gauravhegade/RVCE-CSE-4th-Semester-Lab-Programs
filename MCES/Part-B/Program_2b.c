@@ -5,7 +5,6 @@
 
 #define LED_OFF (IO0SET = 1U << 31)
 #define LED_ON (IO0CLR = 1U << 31)
-#define PLOCK 0x00000400
 
 void delay_ms(unsigned int j)
 {
@@ -15,22 +14,6 @@ void delay_ms(unsigned int j)
         for (x = 0; x < 10000; x++)
             ;
     }
-}
-
-void SystemInit(void)
-{
-    PLL0CON = 0x01;
-    PLL0CFG = 0x24;
-    PLL0FEED = 0xAA;
-    PLL0FEED = 0x55;
-    while (!(PLL0STAT & PLOCK))
-    {
-        ;
-    }
-    PLL0CON = 0x03;
-    PLL0FEED = 0xAA; // lock the PLL registers after setting the required PLL
-    PLL0FEED = 0x55;
-    VPBDIV = 0x01; // PCLK is same as CCLK i.e 60Mhz
 }
 
 unsigned char getAlphaCode(unsigned char alphachar)
@@ -45,7 +28,7 @@ unsigned char getAlphaCode(unsigned char alphachar)
     case 'r':
         return 0xce;
     case 'e':
-        return 0x86; // 1000 0110
+        return 0x86;
     case 'h':
         return 0x89;
     case 'l':
@@ -54,7 +37,6 @@ unsigned char getAlphaCode(unsigned char alphachar)
         return 0x8c;
     case ' ':
         return 0xff;
-    // simmilarly add for other digit/characters
     default:
         break;
     }
@@ -68,30 +50,29 @@ void alphadisp7SEG(char *buf)
     for (i = 0; i < 5; i++) // because only 5 seven segment digits are present
     {
         seg7_data = getAlphaCode(*(buf + i));
-        // instead of this look up table can be used
         // to shift the segment data(8bits)to the hardware (shift registers) using Data,Clock,Strobe
         for (j = 0; j < 8; j++)
         {
-            // get one bit of data for serial sending
-            temp = seg7_data & 0x80; // shift data from Most significan bit (D7)
+            // get one bit of data for serial sending by using concept of masking
+            temp = seg7_data & 0x80; // shift data from Most significant bit (D7)
 
             if (temp == 0x80)
-                IOSET0 |= 1 << 19; // IOSET0 | 0x00080000;
+                IOSET0 |= 1 << 19;
             else
-                IOCLR0 |= 1 << 19; // IOCLR0 | 0x00080000;
+                IOCLR0 |= 1 << 19;
 
             // send one clock pulse
-            IOSET0 |= 1 << 20; // IOSET0 | 0x00100000;
+            IOSET0 |= 1 << 20;
             delay_ms(1);
-            IOCLR0 |= 1 << 20;          // IOCLR0 | 0x00100000;
+            IOCLR0 |= 1 << 20;
             seg7_data = seg7_data << 1; // get next bit into D7 position
         }
     }
 
     // send the strobe signal
-    IOSET0 |= 1 << 30; // IOSET0 | 0x40000000;
-    delay_ms(1);       // nop();
-    IOCLR0 |= 1 << 30; // IOCLR0 | 0x40000000;
+    IOSET0 |= 1 << 30;
+    delay_ms(1);
+    IOCLR0 |= 1 << 30;
     return;
 }
 

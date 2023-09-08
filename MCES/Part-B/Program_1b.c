@@ -40,7 +40,7 @@ void reset_values(int y)
 
 void delay_ms(unsigned int ms)
 {
-    for (int i = 0; i < ms; i++)
+    while (ms--)
         for (int x = 0; x < 10000; x++)
             ;
 }
@@ -52,6 +52,7 @@ int main()
     IO0SET = 0xFF << 16; // switch off the LEDs
     while (1)
     {
+        // BCD Up Counter
         if (!SW2)
         {
             reset_values(0);
@@ -61,6 +62,8 @@ int main()
             if (contUP > 99)
                 contUP = 0;
         }
+
+        // BCD Down Counter
         else if (!SW3)
         {
             reset_values(1);
@@ -70,6 +73,8 @@ int main()
             if (contDN < 0)
                 contDN = 99;
         }
+
+        // Ring counter left shifting
         else if (!SW4)
         {
             reset_values(2);
@@ -79,6 +84,8 @@ int main()
             if (leftSFT > 1U << 7)
                 leftSFT = 1;
         }
+
+        // Ring counter right shifting
         else if (!SW5)
         {
             reset_values(3);
