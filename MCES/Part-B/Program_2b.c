@@ -45,8 +45,7 @@ unsigned char getAlphaCode(unsigned char alphachar)
 
 void alphadisp7SEG(char *buf)
 {
-    unsigned char i, j;
-    unsigned char seg7_data, temp = 0;
+    unsigned char i, j, seg7_data, temp = 0;
     for (i = 0; i < 5; i++) // because only 5 seven segment digits are present
     {
         seg7_data = getAlphaCode(*(buf + i));
@@ -81,7 +80,6 @@ int main()
     // to set as o/ps
     IO0DIR |= 1U << 31 | 1U << 19 | 1U << 20 | 1U << 30;
     LED_ON; // make D7 Led on, just to indicate the program is running
-    SystemInit();
     while (1)
     {
         alphadisp7SEG("fire ");
