@@ -12,7 +12,12 @@
 // STOP CURRENT FLOW AFTER EACH STEP
 #define STOP_CURRENT IOCLR0 = 0X000F0000
 
-void delay(unsigned int ms);
+void delay(unsigned int ms)
+{
+	while (ms--)
+		for (unsigned int i = 0; i < 10000; i++)
+			;
+}
 
 int main()
 {
@@ -23,21 +28,25 @@ int main()
 	{
 		STOP_CURRENT;
 		STEP1;
+		delay(10);
 		if (--clock_steps == 0)
 			break;
 
 		STOP_CURRENT;
 		STEP2;
+		delay(10);
 		if (--clock_steps == 0)
 			break;
 
 		STOP_CURRENT;
 		STEP3;
+		delay(10);
 		if (--clock_steps == 0)
 			break;
 
 		STOP_CURRENT;
 		STEP4;
+		delay(10);
 		if (--clock_steps == 0)
 			break;
 
@@ -47,31 +56,28 @@ int main()
 	{
 		STOP_CURRENT;
 		STEP4;
+		delay(10);
 		if (--anti_steps == 0)
 			break;
 
 		STOP_CURRENT;
 		STEP3;
+		delay(10);
 		if (--anti_steps == 0)
 			break;
 
 		STOP_CURRENT;
 		STEP2;
+		delay(10);
 		if (--anti_steps == 0)
 			break;
 
 		STOP_CURRENT;
 		STEP1;
+		delay(10);
 		if (--anti_steps == 0)
 			break;
 
 	} while (1);
 	IO0CLR = 0X000F0000;
-}
-
-void delay(unsigned int ms)
-{
-	while (ms--)
-		for (unsigned int i = 0; i < 10000; i++)
-			;
 }
