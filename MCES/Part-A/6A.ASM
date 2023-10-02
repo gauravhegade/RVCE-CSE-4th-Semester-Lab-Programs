@@ -10,19 +10,19 @@
 
 STOP B STOP
 
-; begin subroutine
+; BEGIN SUBROUTINE
 FACT
 	LDR R1, [R0]
 	MOV R2, #1
 	CMP R1, #0
-	MOV PC, LR
+	MOVEQ PC, LR
 
 LOOP
 	MUL R2, R1, R2
 	SUBS R1, #1
 	BNE LOOP
 	MOV PC, LR	; RETURN
-;end subroutine
+; END SUBROUTINE
 
-INPUT DCD &05
+INPUT DCD 0X05
 	END
