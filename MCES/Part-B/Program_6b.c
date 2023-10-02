@@ -13,19 +13,19 @@
 void delay_ms(unsigned int ms)
 {
 	while (ms--)
-		for (unsigned int i = 0; i < 10000; i++)
-			;
+		for (unsigned int i = 0; i < 10000; i++);
 }
 
 void runDCMotor(int direction, int dutycycle)
 {
 	IO0DIR |= 1U << 28; // set P0.28 as output pin
 	PINSEL0 |= 2 << 18; // select P0.9 as PWM6 (option 2)
+	
 	if (direction == 1)
-
 		IO0SET = 1 << 28; // set to 1, to choose anti-clockwise direction
 	else
 		IO0CLR = 1 << 28;				// set to 0, to choose clockwise direction
+	
 	PWMPCR = (1 << 14);					// enable PWM6
 	PWMMR0 = 1000;						// set PULSE rate to value suitable for DC Motor operation
 	PWMMR6 = (1000U * dutycycle) / 100; // set PULSE period
@@ -49,16 +49,15 @@ unsigned int adc(int no, int ch)
 	{
 	case 0:
 		AD0CR = 0x00200600 | (1 << ch); // select channel
-		AD0CR |= (1 << 24);				// start conversion
-		while ((AD0GDR & (1U << 31)) == 0)
-			;
+		AD0CR |= (1 << 24);		// start conversion
+		// while the done bit is 0 wait, when 1 - exit
+		while ((AD0GDR & (1U << 31)) == 0);
 		val = AD0GDR;
 		break;
 	case 1:
 		AD1CR = 0x00200600 | (1 << ch); // select channel
-		AD1CR |= (1 << 24);				// start conversion
-		while ((AD1GDR & (1U << 31)) == 0)
-			;
+		AD1CR |= (1 << 24);		// start conversion
+		while ((AD1GDR & (1U << 31)) == 0);
 		val = AD1GDR;
 		break;
 	}
