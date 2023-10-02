@@ -158,10 +158,10 @@ int main()
 void uartinit()
 {
 	PINSEL0 |= 0X05;
-	U0CLR = 0X83;
+	U0LCR = 0X83;
 	U0DLM = 0;
 	U0DLL = 8;
-	U0CLR = 0X03;
+	U0LCR = 0X03;
 	U0FCR = 0X07;
 }
 
