@@ -11,50 +11,47 @@
 void delay_ms(unsigned int j)
 {
     while (j--)
-        for (unsigned int i = 0; i < 10000; i++)
-            ;
+        for (unsigned int i = 0; i < 10000; i++);
 }
 
 short int sine_table[] = {
-    // upper half cycle
-    512 + 0, 512 + 52, 512 + 106, 512 + 158, 512 + 208, 512 + 255, 512 + 300, 512 + 342, 512 + 380,
-    512 + 413, 512 + 442, 512 + 467, 512 + 486, 512 + 500, 512 + 508, 512 + 511, 512 + 508, 512 + 500,
-    512 + 486, 512 + 467, 512 + 442, 512 + 413, 512 + 380, 512 + 342, 512 + 300, 512 + 255, 512 + 208,
-    512 + 158, 512 + 106, 512 + 52, 512 + 0,
-    // lower half cycle
-    512 - 0, 512 - 52, 512 - 106, 512 - 158, 512 - 208, 512 - 255, 512 - 300, 512 - 342, 512 - 380,
-    512 - 413, 512 - 442, 512 - 467, 512 - 486, 512 - 500, 512 - 508, 512 - 511, 512 - 508, 512 - 500,
-    512 - 486, 512 - 467, 512 - 442, 512 - 413, 512 - 380, 512 - 342, 512 - 300, 512 - 255, 512 - 208,
-    512 - 158, 512 - 106, 512 - 52, 512 - 0};
+    0, 52, 106, 158, 208, 255, 300, 342, 380,
+    413, 442, 467, 486, 500, 508, 511, 508, 500,
+    486, 467, 442, 413, 380, 342, 300, 255, 208,
+    158, 106, 52, 0,
+};
 
-int main()
-{
+int main() {
     PINSEL1 = 1 << 19; // P0.25 AS DAC
     IODIR0 = 1 << 31;  // FOR LED
     LED_ON;
     short int i = 0, value = 0;
 
-    while (1)
-    {
+    while (1) {
         // sine waveform
-        if (SW2)
-        {
-            while (i != 60)
-            {
+        if (SW2) {
+            // upper half cycle
+            while (i != 30) {
                 // enable bias bit (16) and push data to 6th bit (D15:6)
-                value = sine_table[i++];
+                value = 512 + sine_table[i++];
                 DACR = (1 << 16 | value << 6);
                 delay_ms(1);
             }
+			i = 0;
+            // lower half cycle
+			while(i != 30) {
+				// enable bias bit (16) and push data to 6th bit (D15:6)
+                value = 512 - sine_table[i++];
+                DACR = (1 << 16 | value << 6);
+                delay_ms(1);	
+			}
             i = 0;
         }
 
         // rectified sine waveform
-        else if (SW3)
-        {
-            while (i != 30)
-            {
-                value = sine_table[i++];
+        else if (SW3) {
+            while (i != 30) {
+                value = 512 + sine_table[i++];
                 DACR = (1 << 16 | value << 6);
                 delay_ms(1);
             }
@@ -62,17 +59,14 @@ int main()
         }
 
         // triangular waveform
-        else if (SW4)
-        {
+        else if (SW4) {
             i = 0;
-            while (i != 1023)
-            {
+            while (i != 1023) {
                 DACR = (1 << 16 | i++ << 6);
                 delay_ms(1);
             }
 
-            while (i != 0)
-            {
+            while (i != 0) {
                 DACR = (1 << 16 | i-- << 6);
                 delay_ms(1);
             }
@@ -80,19 +74,16 @@ int main()
         }
 
         // sawtooth waveform /|/|
-        else if (SW5)
-        {
+        else if (SW5) {
             i = 0;
-            while (i != 1023)
-            {
+            while (i != 1023) {
                 DACR = (1 << 16 | i++ << 6);
                 delay_ms(1);
             }
         }
 
         // square waveform
-        else if (SW6)
-        {
+        else if (SW6) {
             DACR = (1 << 16 | 1023 << 6);
             delay_ms(1);
             DACR = (1 << 16 | 0 << 6);
