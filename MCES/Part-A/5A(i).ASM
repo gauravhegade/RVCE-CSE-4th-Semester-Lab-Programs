@@ -3,7 +3,7 @@
 
 ; Computes number of 1's in a given 32bit number
 
-	LDR R0, =DATA1
+	LDR R0, =NUM
 	LDR R1, [R0]
 	MOV R2, #0 	; NO OF 1'S
 	MOV R3, #COUNT 	; NO OF BITS 
@@ -17,5 +17,5 @@ LOOP
 STOP B STOP
 
 COUNT EQU 32
-DATA1 DCD 0xAAAAAAAA
+NUM DCD 0xAAAAAAAA
 	END
