@@ -18,7 +18,7 @@ INNER
 	LDR R4, [R0]		; A[J]
 	LDR R5, [R0, #4]	; A[J+1]
 	CMP R4, R5			; IF (A[J] > A[J+1])
-	STRGT R5, [R0]		; SWAP R4 AND R5
+	STRGT R5, [R0]		; SWAP A[J](R4) AND A[J+1](R5)
 	STRGT R4, [R0, #4]	
 
 	ADD R0, #4			; GETTING NEXT ELEMENT FOR NEXT PASS

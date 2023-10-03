@@ -1,7 +1,8 @@
-; Compute factorial of  a 32 bit number
 	AREA RESET, CODE
 	ENTRY
 
+	; Compute factorial of  a 32 bit number
+	
 	LDR R0, =INPUT
 	BL FACT
 
