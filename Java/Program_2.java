@@ -56,9 +56,8 @@ class Cylinder extends Circle {
 public class Program_2 {
     public static void main(String[] args) {
         int k = 1;
+        Scanner input = new Scanner(System.in);
         while (k != -1) {
-            Scanner input = new Scanner(System.in);
-
             System.out.print("Enter the height of Cylinder 1: ");
             double height1 = input.nextDouble();
             System.out.print("Enter the radius of Cylinder 1: ");

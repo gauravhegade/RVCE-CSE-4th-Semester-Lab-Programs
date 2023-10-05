@@ -95,36 +95,37 @@ public class Program_1b {
             col[i] = new College(name, addr[i]);
         }
 
-        Loop: while (true) {
-            System.out.println("1. Student Detail\n2. Employee Detail\n3. College Detail \nEnter your Choice ");
+        while (true) {
+            System.out.println("1. Student Detail\n2. Employee Detail\n3. College Detail \n4. Exit \nEnter your Choice: ");
             int var = in.nextInt();
             switch (var) {
                 case 1:
+                    System.out.println("Name | USN | Address");
                     for (i = 0; i < num; i++) {
-                        System.out.println("Name | USN | Address");
                         System.out.println(stud[i].name + " | " + stud[i].usn + " | " +
                                 stud[i].address.street_no + ", " + stud[i].address.city + ", " +
                                 stud[i].address.state + ", " + stud[i].address.country);
                     }
                     break;
                 case 2:
+                    System.out.println("Name | ID | Address");
                     for (i = 0; i < num; i++) {
-                        System.out.println("Name | ID | Address");
                         System.out.println(empl[i].name + " | " + empl[i].id + " | " + empl[i].address.street_no + ", "
                                 + empl[i].address.city + ", " +
                                 empl[i].address.state + ", " + empl[i].address.country);
                     }
                     break;
                 case 3:
+                    System.out.println("College Name | Address");
                     for (i = 0; i < num; i++) {
-                        System.out.println("College Name | Address");
                         System.out.println(col[i].name + " | " + col[i].address.street_no + ", " +
                                 col[i].address.city + ", " + col[i].address.state + ", " +
                                 col[i].address.country);
                     }
                     break;
                 default:
-                    break Loop;
+                    in.close();
+                    System.exit(0);
             }
         }
     }
