@@ -36,7 +36,9 @@ void dijs(int n, int source, int cost[10][10], int distance[], int predecessor[]
 
         // relaxation
         for (int w = 0; w < n; w++){
-            // if the current node is not visited and the distance of the previous node and the cost to reach the current node from the previous node is less than the current distance, then update the new distance, and set the predecessor of the current node as the prevous node
+            // if the current node is not visited and the distance of the previous node 
+            // and the cost to reach the current node from the previous node is less than the current distance 
+            // then update the new distance, and set the predecessor of the current node as the previous node
             if (!visited[w] && distance[v] + cost[v][w] < distance[w]){
                 distance[w] = distance[v] + cost[v][w];
                 predecessor[w] = v;
