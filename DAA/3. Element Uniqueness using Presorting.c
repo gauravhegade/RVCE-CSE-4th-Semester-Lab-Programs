@@ -2,12 +2,12 @@
 #include <stdlib.h>
 
 // insertion sort
-void sort(int a[], int n){
-    for (int i = 1; i < n; i++){
+void sort(int a[], int n) {
+    for (int i = 1; i < n; i++) {
         int item = a[i];
         int j = i - 1;
 
-        while (j >= 0 && a[j] > item){
+        while (j >= 0 && a[j] > item) {
             a[j + 1] = a[j];
             j = j - 1;
         }
@@ -15,8 +15,7 @@ void sort(int a[], int n){
     }
 }
 
-int checkDuplicate(int a[], int n)
-{
+int checkDuplicate(int a[], int n) {
     sort(a, n);
     // checking for duplicates in sorted array
     for (int i = 0; i < n - 1; i++)
@@ -26,8 +25,7 @@ int checkDuplicate(int a[], int n)
     return 0;
 }
 
-int main()
-{
+int main() {
     int n, a[10];
 
     printf("Enter the size of array: ");

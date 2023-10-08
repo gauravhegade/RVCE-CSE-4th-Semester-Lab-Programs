@@ -3,19 +3,18 @@
 
 int topo[10], k;
 
-void dfs(int a[10][10], int n, int visited[10], int source)
-{
+void dfs(int a[10][10], int n, int visited[10], int source) {
     visited[source] = 1;
 
     for (int i = 1; i <= n; i++)
-        if (!visited[i] && a[source][i] == 1) // if there is an edge and neighbour not visited
+        if (!visited[i] &&
+            a[source][i] == 1) // if there is an edge and neighbour not visited
             dfs(a, n, visited, i);
 
     topo[++k] = source;
 }
 
-int main()
-{
+int main() {
     int n, a[10][10];
     int visited[10] = {0}; // initialize all elements as 0
 
