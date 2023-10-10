@@ -25,11 +25,9 @@ void dijs(int n, int source, int cost[10][10], int distance[],
     count = 1;
 
     while (count < n) {
-        // calculating minimum distances
+        // extract_min
         min = INF;
         for (int w = 0; w < n; w++) {
-            // traverse along the minimum cost path marking nodes as visited on
-            // the way
             if (!visited[w] && distance[w] < min) {
                 min = distance[w];
                 v = w;
