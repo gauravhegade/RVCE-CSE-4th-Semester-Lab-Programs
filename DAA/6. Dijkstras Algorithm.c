@@ -3,11 +3,9 @@
 
 void dijs(int n, int source, int cost[10][10], int distance[],
           int predecessor[]) {
-    int v, count, visited[23], min;
+    int v, count, visited[10] = {0}, min;
 
     for (int i = 0; i < n; i++) {
-        visited[i] = 0;
-
         // distance to the current node is the cost from the source to the
         // current node
         distance[i] = cost[source][i];
