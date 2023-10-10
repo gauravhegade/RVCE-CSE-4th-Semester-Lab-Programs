@@ -17,26 +17,16 @@ void subsetSum(int subset, int k, int r) {
     static int subset_count = 1; // number of subsets
     included[k] = 1;
 
-    // if the weight of the current node and the current subset sum is equal to
-    // the required max sum, then print the subset elements
     if (set[k] + subset == max) {
         printf("\nSubset %d) ", subset_count++);
         for (int i = 1; i <= k; i++)
-            // if that node is part of the subset, then print its value
             if (included[i])
                 printf("%d\t", set[i]);
     }
 
-    // if the sum + weight of the current element and the next element is still
-    // less than the max value, recursively call find the next element in the
-    // subset r is the total sum of the elements of the super set
     else if (subset + set[k] + set[k + 1] <= max)
         subsetSum(subset + set[k], k + 1, r - set[k]);
-
-    // if the subset sum + the total sum - the weight of the current element is
-    // exceeding the max sum and if the subset sum + weight of the next element
-    // is less than the max required sum do not include that element in the
-    // subset
+  
     if ((subset + r - set[k] >= max) && (subset + set[k + 1] <= max)) {
         included[k] = 0;
         subsetSum(subset, k + 1, r - set[k]);
